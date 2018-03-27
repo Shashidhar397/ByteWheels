@@ -14,7 +14,13 @@
 
 	<context:component-scan base-package="com.bytewheels.app" />
 
-	<jee:jndi-lookup id="dbDataSource" jndi-name="jdbc/byteWheelsDB"
-		expected-type="javax.sql.DataSource" />
+	<jee:jndi-lookup id="dbDataSource" jndi-name="java:jboss/jdbc/bytewheelsDS"/>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="classpath*:META-INF/persistence.xml"></property>
+		<property name="persistenceUnitName" value="vehiclePersistenceUnit"></property>
+		<property name="dataSource" ref="dbDataSource" />
+	</bean>
 
 </beans>

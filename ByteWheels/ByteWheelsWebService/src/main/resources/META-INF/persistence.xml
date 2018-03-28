@@ -2,14 +2,16 @@
 <persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
-	<persistence-unit name="vehiclePersistenceUnit" transaction-type="JTA">
+	<persistence-unit name="vehiclePersistenceUnit" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<jta-data-source>jdbc/byteWheelsDB</jta-data-source>
-		<class>com.bytewheels.app.entity.Vehicle</class>
+		<non-jta-data-source>jdbc/byteWheelsDB</non-jta-data-source>
+		<class>com.bytewheels.app.entity.Car</class>
+		<class>com.bytewheels.app.entity.BookedCars</class>
+		<class>com.bytewheels.app.entity.User</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
 			<property name="hibernate.show_sql" value="false"/>	
-			<property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.service.jta.platform.internal.WeblogicJtaPlatform"/> -->
+			<property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.service.jta.platform.internal.WeblogicJtaPlatform"/>
 		</properties>
 	</persistence-unit>
 

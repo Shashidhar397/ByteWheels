@@ -1,9 +1,13 @@
 package com.bytewheels.app.dao;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +48,17 @@ public class ByteWheelsDaoImpl implements ByteWheelsDaoIF{
 		entityManager.flush();
 	}
 
-	
+	public List<Car> getCars(String date, String category, int costFrom, int costTo){
+		List<Object> carIds = null;
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		if(date != null && !date.isEmpty()) {
+			CriteriaQuery<Object> query = criteriaBuilder.createQuery(Object.class);
+			Root<BookedCars> entity = query.from(BookedCars.class);
+			
+			query.select(entity.get("car_id")).where(criteriaBuilder.equal(entity.get("when_to_date"), date));
+			carIds = entityManager.createQuery(query).getResultList();
+		}
+	}
 	
 	
 }

@@ -1,5 +1,6 @@
 package com.bytewheels.app.request;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,32 +13,48 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-"rentingDate",
+"rentingDateFrom",
+"rentingDateTo",
 "category",
 "costFrom",
-"costTo"
+"costTo",
+"carName"
 })
-public class RentCarRequest {
+public class GetVehiclesRequest {
 
-@JsonProperty("rentingDate")
-private String rentingDate;
+@JsonProperty("rentingDateFrom")
+private String rentingDateFrom;
+@JsonProperty("rentingDateTo")
+private String rentingDateTo;
 @JsonProperty("category")
 private String category;
 @JsonProperty("costFrom")
-private Integer costFrom;
+private BigDecimal costFrom = BigDecimal.ZERO;
 @JsonProperty("costTo")
-private Integer costTo;
+private BigDecimal costTo = BigDecimal.ZERO;
+@JsonProperty("carName")
+private String carName;
 @JsonIgnore
 private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-@JsonProperty("rentingDate")
-public String getRentingDate() {
-return rentingDate;
+@JsonProperty("rentingDateFrom")
+public String getRentingDateFrom() {
+return rentingDateFrom;
 }
 
-@JsonProperty("rentingDate")
-public void setRentingDate(String rentingDate) {
-this.rentingDate = rentingDate;
+@JsonProperty("rentingDateFrom")
+public void setRentingDateFrom(String rentingDate) {
+this.rentingDateFrom = rentingDate;
+}
+
+@JsonProperty("rentingDateTo")
+public String getRentingDateTo() {
+	return rentingDateTo;
+}
+
+@JsonProperty("rentingDateTo")
+public void setRentingDateTo(String rentingDateTo) {
+	this.rentingDateTo = rentingDateTo;
 }
 
 @JsonProperty("category")
@@ -51,23 +68,31 @@ this.category = category;
 }
 
 @JsonProperty("costFrom")
-public Integer getCostFrom() {
+public BigDecimal getCostFrom() {
 return costFrom;
 }
 
 @JsonProperty("costFrom")
-public void setCostFrom(Integer costFrom) {
+public void setCostFrom(BigDecimal costFrom) {
 this.costFrom = costFrom;
 }
 
 @JsonProperty("costTo")
-public Integer getCostTo() {
+public BigDecimal getCostTo() {
 return costTo;
 }
 
 @JsonProperty("costTo")
-public void setCostTo(Integer costTo) {
+public void setCostTo(BigDecimal costTo) {
 this.costTo = costTo;
+}
+
+public String getCarName() {
+	return carName;
+}
+
+public void setCarName(String carName) {
+	this.carName = carName;
 }
 
 @JsonAnyGetter

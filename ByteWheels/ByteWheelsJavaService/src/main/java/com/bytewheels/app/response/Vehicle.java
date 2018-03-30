@@ -1,5 +1,6 @@
 package com.bytewheels.app.response;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -18,26 +19,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class Vehicle {
 
-@JsonProperty("carId")
-private String carId;
 @JsonProperty("carName")
 private String carName;
 @JsonProperty("carType")
 private String carType;
 @JsonProperty("carRentCost")
-private Integer carRentCost;
+private BigDecimal carRentCost;
+@JsonProperty("availableCars")
+private int availableCars;
 @JsonIgnore
 private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-@JsonProperty("carId")
-public String getCarId() {
-return carId;
-}
-
-@JsonProperty("carId")
-public void setCarId(String carId) {
-this.carId = carId;
-}
 
 @JsonProperty("carName")
 public String getCarName() {
@@ -60,13 +51,24 @@ this.carType = carType;
 }
 
 @JsonProperty("carRentCost")
-public Integer getCarRentCost() {
+public BigDecimal getCarRentCost() {
 return carRentCost;
 }
 
 @JsonProperty("carRentCost")
-public void setCarRentCost(Integer carRentCost) {
+public void setCarRentCost(BigDecimal carRentCost) {
 this.carRentCost = carRentCost;
+}
+
+
+@JsonProperty("availableCars")
+public int getAvailableCars() {
+	return availableCars;
+}
+
+@JsonProperty("availableCars")
+public void setAvailableCars(int availableCars) {
+	this.availableCars = availableCars;
 }
 
 @JsonAnyGetter

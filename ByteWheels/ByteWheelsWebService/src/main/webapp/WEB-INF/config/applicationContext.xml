@@ -15,6 +15,7 @@
 		http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<context:component-scan base-package="com.bytewheels.app" />
+	<context:property-placeholder location="classpath*:email.properties" />
 	<mvc:annotation-driven/>
 	<jee:jndi-lookup id="dbDataSource" jndi-name="jdbc/byteWheelsDB"
 		expected-type="javax.sql.DataSource" />
@@ -31,5 +32,23 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactoryBean" />
 	</bean>
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${smtp.host}" />
+        <property name="port" value="${smtp.port}" />
+        <property name="username" value="${smtp.username}" />
+        <property name="password" value="${smtp.password}" /> 
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.debug">true</prop>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+                <prop key="mail.smtp.socketFactory.port">465</prop>
+               <prop key="mail.smtp.starttls.enable">true</prop>
+                
+            </props>
+        </property>
+    </bean>
 
 </beans>

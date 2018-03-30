@@ -24,12 +24,6 @@ public class Car {
 	@Column(name = "car_rent_cost")
 	private BigDecimal carRentCost;
 	
-	@Column(name = "total_cars")
-	private int totalCars;
-	
-	@Column(name = "available_cars")
-	private int availableCars;
-	
 	@Column(name = "ent_ts")
 	private String ent_ts;
 	
@@ -66,22 +60,6 @@ public class Car {
 
 	public void setCarRentCost(BigDecimal carRentCost) {
 		this.carRentCost = carRentCost;
-	}
-
-	public int getTotalCars() {
-		return totalCars;
-	}
-
-	public void setTotalCars(int totalCars) {
-		this.totalCars = totalCars;
-	}
-
-	public int getAvailableCars() {
-		return availableCars;
-	}
-
-	public void setAvailableCars(int availableCars) {
-		this.availableCars = availableCars;
 	}
 
 	public String getEnt_ts() {

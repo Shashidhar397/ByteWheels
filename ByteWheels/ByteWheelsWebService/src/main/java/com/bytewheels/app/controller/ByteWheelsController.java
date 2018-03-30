@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bytewheels.app.request.RentCarRequest;
-import com.bytewheels.app.response.RentCarResponse;
+import com.bytewheels.app.request.GetVehiclesRequest;
+import com.bytewheels.app.request.VehicleBookingRequest;
+import com.bytewheels.app.response.GetVehiclesResponse;
+import com.bytewheels.app.response.VehicleBookingResponse;
 import com.bytewheels.app.services.ByteWheelsServiceIF;
 
 @RestController
@@ -22,12 +24,20 @@ public class ByteWheelsController {
 	
 	@Autowired
 	private ByteWheelsServiceIF byteWheelsService;
-	
+		
 	@RequestMapping(method = RequestMethod.POST, value = "/listVehicles", produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public RentCarResponse listVehicles(final @RequestBody RentCarRequest rentCarRequest) {
-		logger.info("Request got "+rentCarRequest.getRentingDate());
+	public GetVehiclesResponse listVehicles(final @RequestBody GetVehiclesRequest rentCarRequest) {
+		logger.info("Request got "+rentCarRequest.getRentingDateFrom());
 		return byteWheelsService.getVechicles(rentCarRequest);
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/bookVehcle", produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public VehicleBookingResponse bookVehcle(final @RequestBody VehicleBookingRequest vehicleBookingRequest) {
+		logger.info("Request got "+vehicleBookingRequest.getCarName());
+		return byteWheelsService.bookVehicle(vehicleBookingRequest);
+	}
+	
 	
 }

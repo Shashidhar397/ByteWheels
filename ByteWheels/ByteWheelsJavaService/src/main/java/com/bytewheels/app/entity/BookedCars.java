@@ -1,5 +1,6 @@
 package com.bytewheels.app.entity;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -24,15 +25,25 @@ public class BookedCars {
 	@Column(name = "booked_on_date")
 	private Date bookedOnDate;
 	
-	@Column(name = "when_to_date")
-	private Date whenToDate;
-	
 	@Column(name = "ent_ts")
 	private String entTs;
 	
 	@Column(name = "update_ts")
 	private String updateTs;
+	
+	private int stat;
+	
+	@Column(name = "from_date")
+	private Date fromDate;
 
+	@Column(name = "to_Date")
+	private Date toDate;
+	
+	@Column(name = "user_email")
+	private String userEmail;
+	
+	private BigDecimal amt;
+	
 	public int getBookingId() {
 		return bookingId;
 	}
@@ -57,14 +68,6 @@ public class BookedCars {
 		this.bookedOnDate = bookedOnDate;
 	}
 
-	public Date getWhenToDate() {
-		return whenToDate;
-	}
-
-	public void setWhenToDate(Date whenToDate) {
-		this.whenToDate = whenToDate;
-	}
-
 	public String getEntTs() {
 		return entTs;
 	}
@@ -80,7 +83,45 @@ public class BookedCars {
 	public void setUpdateTs(String updateTs) {
 		this.updateTs = updateTs;
 	}
-	
-	
-	
+
+	public int getStat() {
+		return stat;
+	}
+
+	public void setStat(int stat) {
+		this.stat = stat;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public Date getFromDate() {
+		return fromDate;
+	}
+
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public Date getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
+	}
+
+	public BigDecimal getAmt() {
+		return amt;
+	}
+
+	public void setAmt(BigDecimal amt) {
+		this.amt = amt;
+	}	
+		
 }

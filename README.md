@@ -129,4 +129,4 @@ Response Sample:
 ```
 ### 5. UI 
 In the browser browse for the url : http://localhost:8081/ByteWheels/#/login
-![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![alt text](https://github.com/Shashidhar397/ByteWheels/blob/Dev/1.PNG)

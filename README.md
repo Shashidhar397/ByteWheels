@@ -29,9 +29,9 @@ Project requires following to run:
                 auth="Container"
                 type="javax.sql.DataSource" />
 ```
-
-### 2. Clone or Download Code from Dev branch:
-### 3. Build and Deploy
+### 2. Mysql import sqls which are provided through the email
+### 3. Clone or Download Code from Dev branch:
+### 4. Build and Deploy
 1. open cmd prompt move to parent pom in ByteWheels project which is in ByteWheels folder run following command:
 ```
 mvn clean install
@@ -39,7 +39,7 @@ mvn clean install
 ```
 2. Go to target folder of ByteWheelsWebService copy war file and deploy in Tomcat by copying to webapps folder.
 
-### 4.Project contains both UI and Rest : Rest is as follows:
+### 5.Project contains both UI and Rest : Rest is as follows:
 #### 1. listing vehicles based on date:
 ```
 method : POST url : http://localhost:8081/ByteWheels/listVehicles.do  
@@ -127,6 +127,15 @@ Response Sample:
     "userEmailId": "23sdf@gmail.com"
 }
 ```
-### 5. UI 
+### 6. UI 
 In the browser browse for the url : http://localhost:8081/ByteWheels/#/login
+#### First page
 ![alt text](https://github.com/Shashidhar397/ByteWheels/blob/Dev/1.PNG)
+#### Select date as follows and click on submit
+![alt text](https://github.com/Shashidhar397/ByteWheels/blob/Dev/2.PNG)
+#### Filter based on category using category select options
+![alt text](https://github.com/Shashidhar397/ByteWheels/blob/Dev/3.PNG)
+#### Click on the car details and give email id and click book . It will take some time to book car and send an email then it will populate to next page
+![alt text](https://github.com/Shashidhar397/ByteWheels/blob/Dev/4.PNG)
+#### Success page
+![alt text](https://github.com/Shashidhar397/ByteWheels/blob/Dev/5.PNG)

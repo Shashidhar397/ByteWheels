@@ -1,0 +1,68 @@
+<div layout-padding  layout="row">
+	<div flex>
+		<md-input>
+			<label>From</label>
+			<md-datepicker ng-model="dateFrom"></md-datepicker>
+		</md-input>
+	</div>
+	<div flex>
+		<md-input>
+			<label>To</label>
+			<md-datepicker ng-model="dateTo"></md-datepicker>
+		</md-input>
+	</div>
+	<div flex>
+		<md-button class="md-primary" ng-click="getVehiclesData()">Submit</md-button>
+	</div>
+
+</div>
+<div layout-padding layout-sm="row">
+		<md-input-container flex>
+			<md-select ng-model="category" placeholder="Category" ng-change = "categoryChange()">
+				<md-option ng-value = "category" ng-repeat="category in categories" value="category">{{category}}</md-option>
+			</md-select>
+		</md-input-container>
+		<md-button class="md-primary" ng-click="clearValue()">Clear</md-button>
+		<div flex>
+		
+	</div>
+	</div>
+	<div>
+		<md-content layout-padding>
+			<md-grid-list md-cols-gt-md="12" md-cols="3" md-cols-md="8"
+				md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter-gt-md="16px"
+				md-gutter-md="8px" md-gutter="4px">
+				<md-grid-tile ng-repeat="car in getVehicleResponse.vehicles"
+					md-colspan-gt-sm="3" md-rowspan-gt-sm="2">
+					<div ng-click="showAdvanced($event, car)">
+						<div layout="row">
+							<div flex>
+								<label>Car :</label>
+								{{car.carName}}
+							</div>
+						</div>
+						<div layout="row">
+							<div flex>
+								<label>Car Type :</label>
+								{{car.carType}}
+							</div>
+						</div>
+						<div layout="row">
+							<div flex>
+								<label>Cost per day : </label>
+								{{car.carRentCost}}
+							</div>
+						</div>
+						<div layout="row">
+							<div flex>
+								<label>Available No. of Cars : </label>
+								{{car.availableCars}}
+							</div>
+						</div>
+					</div>
+
+
+				</md-grid-tile>
+			</md-grid-list>
+		</md-content>
+	</div>

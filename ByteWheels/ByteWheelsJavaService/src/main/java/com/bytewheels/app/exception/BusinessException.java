@@ -7,6 +7,7 @@ public class BusinessException extends Exception{
 	
 	public BusinessException(int errorCode, String message) {
 		super(message);
+		this.errorCode = errorCode;
 	}
 
 	public int getErrorCode() {

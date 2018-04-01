@@ -1,0 +1,60 @@
+<md-dialog aria-label="BOOK CAR">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Book Car</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+      <div layout="row">
+		<div flex>
+			<label>Car :</label>
+			{{car.carName}}
+		</div>
+	</div>
+	<div layout="row">
+		<div flex>
+			<label>Car Type :</label>
+			{{car.carType}}
+		</div>
+	</div>
+	<div layout="row">
+		<div flex>
+			<label>Cost per day : </label>
+			{{car.carRentCost}}
+		</div>
+	</div>
+	<div layout="row">
+		<div flex>
+			<label>Available No. of Cars : </label>
+			{{car.availableCars}}
+		</div>
+	</div>
+	<div layout="row">
+		<div flex>
+			<md-input-container class="md-block" flex-gt-sm>
+				<label>Email Id</label>
+				<input ng-model="emailId" type="email">
+	          </md-input-container>
+			</div>
+		</div>
+     </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+       Cancel
+      </md-button>
+      <md-button ng-click="answer('Book')" class="md-primary">
+        Book
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -11,11 +11,13 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bytewheels.app.dao.ByteWheelsDaoIF;
 import com.bytewheels.app.entity.BookedCars;
 import com.bytewheels.app.entity.Car;
 import com.bytewheels.app.exception.BusinessException;
+import com.bytewheels.app.exception.SystemException;
 import com.bytewheels.app.request.GetVehiclesRequest;
 import com.bytewheels.app.request.VehicleBookingRequest;
 import com.bytewheels.app.response.GetVehiclesResponse;
@@ -25,7 +27,6 @@ import com.bytewheels.app.util.ByteWheelsUtil;
 import com.bytewheels.app.validator.RequestValidatorIF;
 
 @Service
-//@Transactional
 public class ByteWheelsServiceImpl implements ByteWheelsServiceIF{
 	
 	private static final Logger logger = Logger.getLogger(ByteWheelsServiceImpl.class);
@@ -62,11 +63,14 @@ public class ByteWheelsServiceImpl implements ByteWheelsServiceIF{
 			}
 		} catch(BusinessException e) {
 			ByteWheelsUtil.prepareResponseMessage(e.getErrorCode(), e.getMessage(), getVehiclesResponse);
+		} catch(SystemException e) {
+			ByteWheelsUtil.prepareResponseMessage(e.getErrorCode(), e.getMessage(), getVehiclesResponse);
 		}
 		return getVehiclesResponse;
 	}
 
 
+	@Transactional(rollbackFor=Throwable.class)
 	public VehicleBookingResponse bookVehicle(VehicleBookingRequest vehicleBookingRequest) {
 		VehicleBookingResponse vehicleBookingResponse = new VehicleBookingResponse();
 		try {
@@ -77,13 +81,15 @@ public class ByteWheelsServiceImpl implements ByteWheelsServiceIF{
 				int invoiceId = byteWheelDao.persistBookedCar(bookedCar);
 				System.out.println("Invoice Id : "+invoiceId);
 				
-				ByteWheelsUtil.mapVehicleBookingResponse(bookedCar, vehicleBookingResponse);
+				ByteWheelsUtil.mapVehicleBookingResponse(bookedCar, vehicleBookingRequest, vehicleBookingResponse);
 				sendEmail(vehicleBookingResponse);
 			}
 			else {
 				ByteWheelsUtil.prepareResponseMessage(1, ByteWheelsConstants.VEHICLE_NOT_AVAILABLE, vehicleBookingResponse);
 			}
 		} catch(BusinessException e) {
+			ByteWheelsUtil.prepareResponseMessage(e.getErrorCode(), e.getMessage(), vehicleBookingResponse);
+		} catch(SystemException e) {
 			ByteWheelsUtil.prepareResponseMessage(e.getErrorCode(), e.getMessage(), vehicleBookingResponse);
 		}
 		
@@ -95,8 +101,8 @@ public class ByteWheelsServiceImpl implements ByteWheelsServiceIF{
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 
 				MimeMessageHelper mimeMsgHelperObj = new MimeMessageHelper(mimeMessage, true, "UTF-8");				
-				mimeMsgHelperObj.setTo(vehicleBookingResponse.getUserEmailId());				
-				mimeMsgHelperObj.setText("<b>Cost : "+vehicleBookingResponse.getCost()+" </b>");
+				mimeMsgHelperObj.setTo(vehicleBookingResponse.getUserEmailId());	
+				mimeMsgHelperObj.setText("Your booking with ByteWheels is successful amt needs to be paid at the pick up is : "+vehicleBookingResponse.getCost()+"$");
 				mimeMsgHelperObj.setSubject("ByteWheels Invoice");
 
 			}

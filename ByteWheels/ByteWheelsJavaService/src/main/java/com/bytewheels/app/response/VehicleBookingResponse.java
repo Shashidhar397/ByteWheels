@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 "returnMessage",
 "invoiceId",
 "carId",
+"carName",
 "cost",
 "fromDate",
 "toDate",
@@ -30,6 +31,8 @@ private String returnMessage;
 private Integer invoiceId;
 @JsonProperty("carId")
 private String carId;
+@JsonProperty("carName")
+private String carName;
 @JsonProperty("cost")
 private Double cost;
 @JsonProperty("fromDate")
@@ -59,6 +62,17 @@ return returnMessage;
 @JsonProperty("returnMessage")
 public void setReturnMessage(String returnMessage) {
 this.returnMessage = returnMessage;
+}
+
+
+@JsonProperty("carName")
+public String getCarName() {
+	return carName;
+}
+
+@JsonProperty("carName")
+public void setCarName(String carName) {
+	this.carName = carName;
 }
 
 @JsonProperty("invoiceId")

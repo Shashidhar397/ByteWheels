@@ -1,7 +1,6 @@
 package com.bytewheels.app.util;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,8 +11,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
+
 import com.bytewheels.app.entity.BookedCars;
 import com.bytewheels.app.entity.Car;
+import com.bytewheels.app.exception.SystemException;
 import com.bytewheels.app.request.GetVehiclesRequest;
 import com.bytewheels.app.request.VehicleBookingRequest;
 import com.bytewheels.app.response.GetVehiclesResponse;
@@ -22,8 +24,9 @@ import com.bytewheels.app.response.VehicleBookingResponse;
 
 public class ByteWheelsUtil {
 
-	//Todo handle exception properly
-	public static Date stringToDate(String dateString,String format) {
+	private static final Logger logger = Logger.getLogger(ByteWheelsUtil.class);
+	
+	public static Date stringToDate(String dateString,String format) throws SystemException {
 		if(dateString == null || dateString.isEmpty() || format == null || format.isEmpty()) {
 			return null;
 		}
@@ -33,8 +36,8 @@ public class ByteWheelsUtil {
 			simpleDateFormat = new SimpleDateFormat(format);
 			date = simpleDateFormat.parse(dateString);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Invalid Date format yyyy-MM-dd ",e);
+			throw new SystemException(500,"Invalid Date format yyyy-MM-dd");
 		}
 		return date;
 	}
@@ -55,7 +58,6 @@ public class ByteWheelsUtil {
 			} else {
 				vehicleMap.get(car.getCarName()+"|"+car.getCarType()).setAvailableCars(vehicleMap.get(car.getCarName()+"|"+car.getCarType()).getAvailableCars()+1);
 			}
-			System.out.println(vehicleMap);
 		}
 		
 		for(Entry<String, Vehicle> entry : vehicleMap.entrySet()) {
@@ -66,16 +68,16 @@ public class ByteWheelsUtil {
 	}
 	
 	public static void prepareResponseMessage(int returnCode, String returnMessage, GetVehiclesResponse getVehiclesResponse) {
-		getVehiclesResponse.setRetrunCode(0);
+		getVehiclesResponse.setRetrunCode(returnCode);
 		getVehiclesResponse.setReturnMessage(returnMessage);
 	}
 	
 	public static void prepareResponseMessage(int returnCode, String returnMessage, VehicleBookingResponse vehicleBookingResponse) {
-		vehicleBookingResponse.setReturnCode(0);
+		vehicleBookingResponse.setReturnCode(returnCode);
 		vehicleBookingResponse.setReturnMessage(returnMessage);
 	}
 	
-	public static BookedCars prepareBookCar(VehicleBookingRequest vehicleBookingRequest, Car car) {
+	public static BookedCars prepareBookCar(VehicleBookingRequest vehicleBookingRequest, Car car) throws SystemException {
 		BookedCars bookedCars = new BookedCars();
 		Date date = new Date();
 		bookedCars.setBookedOnDate(new java.sql.Date(date.getTime()));
@@ -90,7 +92,7 @@ public class ByteWheelsUtil {
 		return bookedCars;
 	}
 	
-	public static int findDifferenceBetweenDates(String fromDateString, String toDateString) {
+	public static int findDifferenceBetweenDates(String fromDateString, String toDateString) throws SystemException {
 		Date fromDate = stringToDate(fromDateString, ByteWheelsConstants.DEFAULT_DATE_FORMAT);
 		Date toDate = stringToDate(toDateString, ByteWheelsConstants.DEFAULT_DATE_FORMAT);
 		long diff = toDate.getTime() - fromDate.getTime();
@@ -99,12 +101,13 @@ public class ByteWheelsUtil {
 	    return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)+1;
 	}
 	
-	public static void mapVehicleBookingResponse(BookedCars bookedCars, VehicleBookingResponse vehicleBookingResponse) {
+	public static void mapVehicleBookingResponse(BookedCars bookedCars, VehicleBookingRequest vehicleBookingRequest, VehicleBookingResponse vehicleBookingResponse) {
 		vehicleBookingResponse.setCarId(bookedCars.getCarId());
 		vehicleBookingResponse.setCost(bookedCars.getAmt().doubleValue());
 		vehicleBookingResponse.setFromDate(bookedCars.getFromDate().toString());
 		vehicleBookingResponse.setToDate(bookedCars.getToDate().toString());
 		vehicleBookingResponse.setInvoiceId(bookedCars.getBookingId());
+		vehicleBookingResponse.setCarName(vehicleBookingRequest.getCarName());
 		vehicleBookingResponse.setReturnCode(0);
 		vehicleBookingResponse.setReturnMessage(ByteWheelsConstants.SUCCESS_MESSAGE);
 		vehicleBookingResponse.setUserEmailId(bookedCars.getUserEmail());

@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bytewheels.app.entity.BookedCars;
 import com.bytewheels.app.entity.Car;
-import com.bytewheels.app.entity.User;
+import com.bytewheels.app.exception.SystemException;
 import com.bytewheels.app.util.BookingStatus;
 import com.bytewheels.app.util.ByteWheelsConstants;
 import com.bytewheels.app.util.ByteWheelsUtil;
@@ -31,31 +30,13 @@ public class ByteWheelsDaoImpl implements ByteWheelsDaoIF{
 	@PersistenceContext(unitName="vehiclePersistenceUnit")
 	EntityManager entityManager;
 
-	public void persistCar() {
-		Random rand = new Random();
-		 
-        // Generate random integers in range 0 to 999
-        int rand_int1 = rand.nextInt(1000);
-		Car car = new Car();
-		car.setCarId(String.valueOf(rand_int1));
-		car.setCarName("car1");
-		entityManager.persist(car);
-	}
-
 	public int persistBookedCar(BookedCars bookedCar) {
 		entityManager.persist(bookedCar);
 		entityManager.flush();
 		return bookedCar.getBookingId();
 	}
 
-	public void persistUser() {
-		User user = new User();
-		user.setInvoice_id(1);
-		entityManager.persist(user);
-		entityManager.flush();
-	}
-
-	public List<Car> getCars(String dateFrom, String dateTo, String category, String carName, BigDecimal costFrom, BigDecimal costTo){
+	public List<Car> getCars(String dateFrom, String dateTo, String category, String carName, BigDecimal costFrom, BigDecimal costTo) throws SystemException{
 		List<Object> carIds = null;
 		List<String> bookedCarIds = null;
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

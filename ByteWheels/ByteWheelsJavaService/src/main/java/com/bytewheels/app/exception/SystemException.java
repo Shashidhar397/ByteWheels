@@ -6,6 +6,7 @@ public class SystemException extends Exception{
 	
 	public SystemException(int errorCode, String message) {
 		super(message);
+		this.errorCode = errorCode;
 	}
 
 	public int getErrorCode() {

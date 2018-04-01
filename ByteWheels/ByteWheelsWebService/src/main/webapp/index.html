@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ByteWheels App</title>
+<meta http-equiv="X-UA-Compatible" content="IE=11" />
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1">
+<link rel="stylesheet" href="styles/angular-material.min.css">
+</head>
+<body ng-app="byteWheelsApp">
+
+	<div>
+			<span class="" ui-view="mainView"></span>
+	</div>
+
+
+	<!-- build:assets assets.min.js -->
+	<!-- ASSETS -->
+	<script src="assets/js/angular.min.js"></script>
+	<script src="assets/js/angular-ui-router.min.js"></script>
+	 <script src="assets/js/ui-bootstrap-tpls-0.12.0.js"></script>
+	   <script src="assets/js/angular-animate.min.js"></script>
+  <script src="assets/js/angular-aria.min.js"></script>
+  <script src="assets/js/angular-messages.min.js"></script>
+	 <script src="assets/js/angular-material.min.js"></script>
+	 <script src="assets/js/moment.min.js"></script>
+	<!-- <script type="text/javascript" src="assets/js/spin.min.js"></script>
+  	<script type="text/javascript" src="assets/js/angular-spinner.min.js"></script>
+ 	<script type="text/javascript" src="assets/js/angular-loading-spinner.js"></script> -->
+	<!-- / -->
+	<!-- endbuild -->
+	<!-- build:js app.min.js -->
+	<!-- MODULES -->
+
+	<script src="app.routes.js"></script>
+	<script src="app.config.js"></script>
+	<script src="app.controllers.js"></script>
+	<script src="app.services.js"></script>
+	<script src="app.js"></script>
+	<!-- / -->
+	<!-- CONTROLLERS -->
+	<script src="app/scripts/controllers/login.ctrl.js"></script>
+	
+	
+
+	<!-- / -->
+	<!-- SERVICES -->
+		
+	<!-- / -->
+	<!-- DIRECTIVES -->
+
+	<!-- / -->
+	<!-- inject:js -->
+	<!-- endinject -->
+	<!-- endbuild -->
+</body>
+</html>

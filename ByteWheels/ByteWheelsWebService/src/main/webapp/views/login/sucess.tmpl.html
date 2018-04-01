@@ -1,0 +1,61 @@
+<md-dialog aria-label="Sucess">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Sucess</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+      Your Booking is successful. Confirmation mail is sent to your mail id.
+      <div layout="row">
+		<div flex>
+			<label>Invoice Id :</label>
+			{{invoice.invoiceId}}
+		</div>
+	</div>
+	<div layout="row">
+		<div flex>
+			<label>Car Name :</label>
+			{{invoice.carName}}
+		</div>
+	</div>
+	<div layout="row">
+		<div flex>
+			<label>Billed amt : </label>
+			{{invoice.cost}}
+		</div>
+	</div>
+	<div layout="row">
+		<div flex>
+			<label>From date : </label>
+			{{invoice.fromDate}}
+		</div>
+	</div>
+	<div layout="row">
+	<div flex>
+		<label>To date : </label>
+		{{invoice.toDate}}
+	</div>
+</div>	
+<div layout="row">
+<div flex>
+	<label>Email : </label>
+	{{invoice.userEmailId}}
+</div>
+</div>	
+	</md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="answer('ok')" class="md-primary">
+        OK
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
